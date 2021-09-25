@@ -1,15 +1,15 @@
 from selenium import webdriver
 import unittest
-from ubold_page import UboldPage
+from ubold_homepage import UboldHomePage
 import settings
 import time
 class HomePageSetup(unittest.TestCase):
 
     def setUp(self):
-        options = Uboldage.options
+        options = UboldHomePage.options
         self.driver = webdriver.Chrome(
                                    settings.path_to_webdriver, options=options)
-        UboldPage(self.driver)
+        UboldHomePage(self.driver)
 
     def tearDown(self):
         self.driver.quit()
