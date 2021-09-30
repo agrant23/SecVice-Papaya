@@ -3,16 +3,20 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.common.exceptions import TimeoutException
+import time
+from ubold_basepage import UboldBasePage
 
-class UboldHomePage():
 
-    options = Options()
-    #options.add_argument('--headless')
-    #options.add_argument('--disable-gpu')
+class UboldHomePage(UboldBasePage):
 
-    def __init__(self, driver):
-        self.driver = driver
-        driver.get("https://qa.papaya.secvise.com/")
+    """ def __init__(self, driver):
+        self.driver = UboldBasePage.driver
+        driver.get("https://qa.papaya.secvise.com/") """
+
+    driver = UboldBasePage.driver
+    driver.get("https://qa.papaya.secvise.com/")
+
+    time.sleep(4)
 
     #NAVIGATION BAR
 
@@ -22,7 +26,7 @@ class UboldHomePage():
             EC.element_to_be_clickable(ubold_logo_link_loc))
         self.driver.find_element(*ubold_logo_link_loc).click()
 
-    #FIELDS
+"""     #FIELDS
 
     def username_field(self):
         username_field_loc = (By.ID, 'emailaddress')
@@ -46,4 +50,15 @@ class UboldHomePage():
 
     def click_remember_me_box(self):
         remember_me_box_loc = (By.ID, 'checkbox-signin')
+        wait(self.driver, 15).until(    #after testing I don't need this wait, so do I really need this
+            EC.element_to_be_clickable(remember_me_box_loc))
         self.driver.find_element(*remember_me_box_loc).click()
+    
+    #BUTTONS
+
+    def click_login_button(self):
+        login_button_loc = (By.XPATH,"//button[contains(text(),'Log In')]")
+        wait(self.driver, 15).until(
+            EC.element_to_be_clickable(login_button_loc))
+        #self.driver.find_element(*login_button_loc).click()
+ """

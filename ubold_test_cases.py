@@ -3,6 +3,7 @@ import unittest
 from ubold_homepage import UboldHomePage
 import settings
 import time
+
 class HomePageSetup(unittest.TestCase):
 
     def setUp(self):
