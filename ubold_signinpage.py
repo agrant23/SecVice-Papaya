@@ -6,11 +6,19 @@ from selenium.common.exceptions import TimeoutException
 from ubold_basepage import UboldBasePage
 import time
 
-class UboldSignInPage():
+class UboldSignInPage(UboldBasePage):
+    def __init__(self, spawn = False):
+        """
+        inputs
+        -----
+        spawn: bool
+            The default case is that the driver will already be at the sign in 
+            page as part of a user workflow. Or there is no need to spawn the 
+            sign in page (spawn is False). Spawn input exist's to alter this if
+            desired.
+        """
+        if spawn: UboldBasePage.driver.get("https://qa.papaya.secvise.com/login")
 
-    driver = UboldBasePage.driver
-    driver.get("https://qa.papaya.secvise.com/login")
-    time.sleep(3)
     #FIELDS
 
     def username_field(self):

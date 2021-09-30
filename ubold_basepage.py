@@ -8,7 +8,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import settings
 
 class UboldBasePage():
-
+    
     options = Options()
     #options.add_argument('--headless')
     #options.add_argument('--disable-gpu')

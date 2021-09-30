@@ -9,14 +9,16 @@ from ubold_basepage import UboldBasePage
 
 class UboldHomePage(UboldBasePage):
 
-    """ def __init__(self, driver):
-        self.driver = UboldBasePage.driver
-        driver.get("https://qa.papaya.secvise.com/") """
-
-    driver = UboldBasePage.driver
-    driver.get("https://qa.papaya.secvise.com/")
-
-    time.sleep(4)
+    def __init__(self,spawn=True):
+        """
+        inputs
+        -----
+        spawn: bool
+            The default case is for the driver to open the homepage. Or, the
+            spawning of homepage is True and will occur. Spawn input exist's to
+            alter this if desired.
+        """
+        if spawn: UboldBasePage.driver.get("https://qa.papaya.secvise.com/")
 
     #NAVIGATION BAR
 
@@ -25,40 +27,3 @@ class UboldHomePage(UboldBasePage):
         wait(self.driver, 15).until(
             EC.element_to_be_clickable(ubold_logo_link_loc))
         self.driver.find_element(*ubold_logo_link_loc).click()
-
-"""     #FIELDS
-
-    def username_field(self):
-        username_field_loc = (By.ID, 'emailaddress')
-        wait(self.driver, 15).until(
-            EC.visibility_of_element_located(username_field_loc))
-        return self.driver.find_element(*username_field_loc)
-
-    def input_username_field(self, userName):
-        self.username_field().send_keys(userName)
-
-    def password_field(self):
-        password_field_loc = (By.ID, 'password')
-        wait(self.driver, 15).until(
-            EC.visibility_of_element_located(password_field_loc))
-        return self.driver.find_element(*password_field_loc)
-
-    def input_password_field(self, userName):
-        self.password_field().send_keys(userName)
-
-    #CHECK BOX
-
-    def click_remember_me_box(self):
-        remember_me_box_loc = (By.ID, 'checkbox-signin')
-        wait(self.driver, 15).until(    #after testing I don't need this wait, so do I really need this
-            EC.element_to_be_clickable(remember_me_box_loc))
-        self.driver.find_element(*remember_me_box_loc).click()
-    
-    #BUTTONS
-
-    def click_login_button(self):
-        login_button_loc = (By.XPATH,"//button[contains(text(),'Log In')]")
-        wait(self.driver, 15).until(
-            EC.element_to_be_clickable(login_button_loc))
-        #self.driver.find_element(*login_button_loc).click()
- """
