@@ -13,7 +13,7 @@ class UboldHomePage():
         -----
         spawn: bool
             The default case is for the driver to open the homepage. Or, the
-            spawning of homepage is True and will occur. Spawn input exist's to
+            spawning of homepage is True and will occur. Spawn input exists to
             alter this if desired.
         """
         self.driver = driver

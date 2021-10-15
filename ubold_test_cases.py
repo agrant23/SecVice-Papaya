@@ -5,9 +5,7 @@ from pages.ubold_homepage import UboldHomePage
 from pages.ubold_signinpage import UboldSignInPage
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from pages.ubold_signinpage import UboldSignInPage
 import settings
-import time
 
 
 class HomePageSetup(unittest.TestCase):
@@ -24,7 +22,7 @@ class AccountCreation(HomePageSetup):
     def test_account_creation(self):
         """
         Confirm the user can enter his/her information and be directed to the
-        register page.
+        login page.
 
         acceptance criteria
         --------------------
@@ -36,7 +34,19 @@ class AccountCreation(HomePageSetup):
         UboldAccountCreatePage(self.driver).account_create()
         self.assertIn('login', self.driver.current_url)
 
-    def test_account_page_name(self):
+    def test_user_account_page(self):
+        """
+        Confirm the user can enter his/her login credential and be directed to
+        their account page. This is done by testing if the user's first name
+        appears in the navigation bar of the account page.
+
+        acceptance criteria
+        --------------------
+        -Given a user inputs valid login credential
+         When user clicks on the login button
+         Then the account page will open with his/her first name in the
+         navigation bar.
+        """
         ubold_signin_page = UboldSignInPage(self.driver, True)
         ubold_signin_page.input_username_field(settings.ubold_username)
         ubold_signin_page.input_password_field(settings.ubold_password)

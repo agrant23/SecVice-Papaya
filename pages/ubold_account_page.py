@@ -12,7 +12,7 @@ class UboldAccountPage():
         spawn: bool
             The default case is that the driver will already be at the sign in 
             page as part of a user workflow. Or there is no need to spawn the 
-            sign in page (spawn is False). Spawn input exist's to alter this if
+            sign in page (spawn is False). Spawn input exists to alter this if
             desired.
         """
         self.driver = driver
