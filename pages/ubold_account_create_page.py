@@ -100,13 +100,17 @@ class UboldAccountCreatePage():
 
     def click_accept_terms_box(self):
         accept_terms_box_loc = (By.ID, 'checkbox-signup')
-        accept_terms_box_element = self.driver.find_element(*accept_terms_box_loc)
-        self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        self.driver.execute_script(
+                               "window.scrollTo(0,document.body.scrollHeight)")
+        #In order to successfully wait for the scoll to complete the below loop
+        #is required. I feel there is some hidden script running that adversly 
+        #effected explicit waits.
         retry = 0
         while retry < 10:
             try:
-                wait(self.driver, 15).until(EC.visibility_of_element_located(accept_terms_box_loc))
-                accept_terms_box_element.click()
+                wait(self.driver, 15).until(
+                    EC.visibility_of_element_located(accept_terms_box_loc))
+                self.driver.find_element(*accept_terms_box_loc).click()
                 break
             except:
                 StaleElementReferenceException
