@@ -1,4 +1,5 @@
 import time
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -99,13 +100,17 @@ class UboldAccountCreatePage():
 
     def click_accept_terms_box(self):
         accept_terms_box_loc = (By.ID, 'checkbox-signup')
-
-        self.driver.execute_script("arguments[0].scrollIntoView();",
-            wait(self.driver, 20).until(
-                EC.visibility_of_element_located(accept_terms_box_loc)))
-        time.sleep(0.2)  #I know this is suboptimal I will come back and fix this
-        self.driver.find_element(*accept_terms_box_loc).click()
-        #ActionChains(self.driver).move_to_element(wait(self.driver, 20).until(EC.element_to_be_clickable(accept_terms_box_loc))).click().perform() 
+        accept_terms_box_element = self.driver.find_element(*accept_terms_box_loc)
+        self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        retry = 0
+        while retry < 10:
+            try:
+                wait(self.driver, 15).until(EC.visibility_of_element_located(accept_terms_box_loc))
+                accept_terms_box_element.click()
+                break
+            except:
+                StaleElementReferenceException
+                retry += 1
 
     #BUTTONS
 
@@ -154,4 +159,4 @@ class UboldAccountCreatePage():
         self.input_password_field(settings.ubold_password)
         self.input_password_confirm_field(settings.ubold_password)
         self.click_accept_terms_box()
-        self.click_signup_button()
+        #self.click_signup_button()
