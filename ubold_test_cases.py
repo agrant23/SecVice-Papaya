@@ -6,7 +6,7 @@ from pages.ubold_signinpage import UboldSignInPage
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import settings
-
+import time
 
 class HomePageSetup(unittest.TestCase):
 
@@ -32,6 +32,7 @@ class AccountCreation(HomePageSetup):
         """
         UboldHomePage(self.driver).click_sign_up_link()
         UboldAccountCreatePage(self.driver).account_create()
+        time.sleep(5)
         self.assertIn('login', self.driver.current_url)
 
     def test_user_account_page(self):

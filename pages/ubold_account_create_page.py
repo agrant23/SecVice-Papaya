@@ -1,12 +1,10 @@
 import time
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
-from selenium.webdriver.common.action_chains import ActionChains
 import settings
-
+import tools
 
 class UboldAccountCreatePage():
     def __init__(self, driver, spawn = False):
@@ -100,32 +98,18 @@ class UboldAccountCreatePage():
 
     def click_accept_terms_box(self):
         accept_terms_box_loc = (By.ID, 'checkbox-signup')
-        self.driver.execute_script(
-                               "window.scrollTo(0,document.body.scrollHeight)")
-        #In order to successfully wait for the scoll to complete the below loop
-        #is required. I feel there is some hidden script running that adversly 
-        #effected explicit waits.
-        retry = 0
-        while retry < 10:
-            try:
-                wait(self.driver, 15).until(
-                    EC.visibility_of_element_located(accept_terms_box_loc))
-                self.driver.find_element(*accept_terms_box_loc).click()
-                break
-            except:
-                StaleElementReferenceException
-                retry += 1
+        #In order to successfully wait for the scroll to complete the method in
+        #tools is required. There is likely some hidden script running that is
+        #adversly effecting the explicit waits.
+        tools.wait_for_scroll_to_click(self.driver,accept_terms_box_loc)
+
 
     #BUTTONS
 
     def click_signup_button(self):
         signup_button_loc = (By.XPATH,"//button[contains(text(),'Sign Up')]")
-        self.driver.execute_script("arguments[0].scrollIntoView();",
-            wait(self.driver, 20).until(
-                EC.visibility_of_element_located(signup_button_loc)))
-        time.sleep(0.2)  #I know this is suboptimal I will come back and fix this
         url_before_click = self.driver.current_url
-        self.driver.find_element(*signup_button_loc).click()
+        tools.wait_for_scroll_to_click(self.driver,signup_button_loc)
         wait(self.driver, 15).until(EC.url_changes(url_before_click))
 
     #ERROR MESSAGES
@@ -155,7 +139,7 @@ class UboldAccountCreatePage():
         self.input_firstname_field("Tony")
         self.input_lastname_field("Grant")
         #the email must be changed after each passing test
-        self.input_email_field("madeUpemail456@gmail.com")
+        self.input_email_field("madeUpemail258@gmail.com")
         #the username must be changed after each passing test
         self.input_username_field(settings.ubold_username)
         self.input_phone_num_field("3093103171")
@@ -163,4 +147,4 @@ class UboldAccountCreatePage():
         self.input_password_field(settings.ubold_password)
         self.input_password_confirm_field(settings.ubold_password)
         self.click_accept_terms_box()
-        #self.click_signup_button()
+        self.click_signup_button()
