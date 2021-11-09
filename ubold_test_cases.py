@@ -6,7 +6,6 @@ from pages.ubold_signinpage import UboldSignInPage
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import settings
-import time
 
 
 class HomePageSetup(unittest.TestCase):
