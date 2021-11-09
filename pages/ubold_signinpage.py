@@ -1,23 +1,25 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
+import settings
 
 
 class UboldSignInPage():
-    def __init__(self,driver, spawn = False):
+    def __init__(self, driver, spawn=False):
         """
         inputs
         -----
         spawn: bool
-            The default case is that the driver will already be at the sign in 
-            page as part of a user workflow. Or there is no need to spawn the 
+            The default case is that the driver will already be at the sign in
+            page as part of a user workflow. Or there is no need to spawn the
             sign in page (spawn is False). Spawn input exists to alter this if
             desired.
         """
         self.driver = driver
-        if spawn: self.driver.get("https://dev.papaya.secvise.com/login")
+        if spawn:
+            self.driver.get("https://dev.papaya.secvise.com/login")
 
-    #FIELDS
+    # FIELDS
 
     def username_field(self):
         username_field_loc = (By.ID, 'username')
@@ -37,27 +39,32 @@ class UboldSignInPage():
     def input_password_field(self, userName):
         self.password_field().send_keys(userName)
 
-    #CHECK BOX
+    # CHECK BOX
 
     def click_remember_me_box(self):
         remember_me_box_loc = (By.ID, 'checkbox-signin')
-        wait(self.driver, 15).until(    #after testing I don't need this wait, so do I really need this
+        wait(self.driver, 15).until(
             EC.element_to_be_clickable(remember_me_box_loc))
         self.driver.find_element(*remember_me_box_loc).click()
 
-    #BUTTONS
+    # BUTTONS
 
     def click_login_button(self):
-        login_button_loc = (By.XPATH,"//button[contains(text(),'Log In')]")
+        login_button_loc = (By.XPATH, "//button[contains(text(),'Log In')]")
         wait(self.driver, 15).until(
             EC.element_to_be_clickable(login_button_loc))
         url_before_click = self.driver.current_url
         self.driver.find_element(*login_button_loc).click()
         wait(self.driver, 15).until(EC.url_changes(url_before_click))
+        """
+        After the account page loads a side menu appears and a refresh of the
+        website is required to hide the menu to access account page elements
+        """
+        self.driver.refresh()
 
-    #USER FLOW
+    # USER FLOW
 
     def login(self):
-        self.input_username_field("Tony")
-        self.input_password_field("mypassword")
+        self.input_username_field(settings.ubold_username)
+        self.input_password_field(settings.ubold_password)
         self.click_login_button()

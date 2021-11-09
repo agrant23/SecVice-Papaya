@@ -22,19 +22,19 @@ class UboldHomePage():
     #NAVIGATION BAR
 
     def click_ubold_logo_link(self):
-        ubold_logo_link_loc = (By.XPATH,'//a[contains(@class,"logo")]')
+        ubold_logo_link_loc = (By.XPATH, '//a[contains(@class,"logo")]')
         wait(self.driver, 15).until(
             EC.element_to_be_clickable(ubold_logo_link_loc))
         self.driver.find_element(*ubold_logo_link_loc).click()
     
     def click_sign_in_link(self):
-        singin_link_loc = (By.LINK_TEXT,"Sign In")
+        singin_link_loc = (By.LINK_TEXT, "Sign In")
         wait(self.driver, 15).until(
             EC.element_to_be_clickable(singin_link_loc))
         self.driver.find_element(*singin_link_loc).click()
     
     def click_sign_up_link(self):
-        singup_link_loc = (By.LINK_TEXT,"Sign Up")
+        singup_link_loc = (By.LINK_TEXT, "Sign Up")
         wait(self.driver, 15).until(
             EC.element_to_be_clickable(singup_link_loc))
         self.driver.find_element(*singup_link_loc).click()

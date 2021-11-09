@@ -2,6 +2,9 @@
 __pycache__
 secure.py
 sandbox.py
+sandbox2.py
+sandbox3.py
+useful_code.py
 .env
 selenium/
 page-behavior-usefull-elements.txt
