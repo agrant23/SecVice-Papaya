@@ -145,7 +145,7 @@ def wait_for_scroll_to_click(driver, locator):
             driver.find_element(*locator).click()
             break
         except ElementClickInterceptedException:
-            #driver.execute_script("window.scrollBy(0,3000)")
+            driver.execute_script("window.scrollBy(0,3000)")
             retry += 1
 
 
